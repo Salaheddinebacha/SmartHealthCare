@@ -1,0 +1,34 @@
+.profile-wrapper {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-header h2 {
+  text-align: center;
+  color: #333;
+}
+
+.profile-details {
+  margin-top: 20px;
+}
+
+.profile-details p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.logout-button {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+}
+
+.logout-button:hover {
+  background-color: #e53935;
+}

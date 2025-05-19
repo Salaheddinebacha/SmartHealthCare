@@ -1,54 +1,42 @@
-import { useEffect, useRef } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/logo10.svg";
 import { BiMenu } from "react-icons/bi";
-import imageUtilisateur from "../../assets/Images/avatar-icon.png";
 
 const liensNavigation = [
-  {
-    path: "/home",
-    display: "Accueil",
-  },
-  {
-    path: "/doctors",
-    display: "Trouver un médecin",
-  },
-  {
-    path: "/services",
-    display: "Services",
-  },
-  {
-    path: "/contact",
-    display: "Contact",
-  },
+  { path: "/home", display: "Accueil" },
+  { path: "/doctors", display: "Trouver un médecin" },
+  { path: "/services", display: "Services" },
+  { path: "/contact", display: "Contact" },
 ];
 
 const Header = () => {
-  const refEnTete = useRef(null);
-  const refMenu = useRef(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
-  const gererEnteteFixe = () => {
-    window.addEventListener("scroll", () => {
-      if (
-        document.body.scrollTop > 80 ||
-        document.documentElement.scrollTop > 80
-      ) {
-        refEnTete.current.classList.add("sticky_header");
-      } else {
-        refEnTete.current.classList.remove("sticky_header");
-      }
-    });
+  // Initialisation et écoute de l'événement custom
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsAuthenticated(!!localStorage.getItem("token"));
+    };
+
+    checkAuth(); // Au montage
+
+    window.addEventListener("authChange", checkAuth);
+
+    return () => {
+      window.removeEventListener("authChange", checkAuth);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    navigate("/login");
   };
 
-  useEffect(() => {
-    gererEnteteFixe();
-    return () => window.removeEventListener("scroll", gererEnteteFixe);
-  });
-
-  const basculerMenu = () => refMenu.current.classList.toggle("show_menu");
-
   return (
-    <header className="header flex items-center" ref={refEnTete}>
+    <header className="header flex items-center">
       <div className="container">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -57,7 +45,7 @@ const Header = () => {
           </div>
 
           {/* Menu de navigation */}
-          <div className="navigation" ref={refMenu} onClick={basculerMenu}>
+          <div className="navigation">
             <ul className="menu flex items-center gap-[2.7rem]">
               {liensNavigation.map((lien, index) => (
                 <li key={index}>
@@ -78,28 +66,45 @@ const Header = () => {
 
           {/* Partie droite de la navigation */}
           <div className="flex items-center gap-4">
-            <div className="hidden">
-              <Link to="/">
-                <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
-                  <img
-                    src={imageUtilisateur}
-                    className="w-full rounded-full"
-                    alt="Utilisateur"
-                  />
-                </figure>
-              </Link>
-            </div>
-            <Link to="/login">
-              <button className="bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]">
-                Connexion
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button className="bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]">
-                S'inscrire
-              </button>
-            </Link>
-            <span className="md:hidden" onClick={basculerMenu}>
+            {isAuthenticated ? (
+              <>
+                <Link to="/profile">
+                  <button
+                    className="bg-primaryColor text-white font-[600] flex items-center justify-center rounded-[50px] px-6"
+                    style={{ height: "44px" }}
+                  >
+                    Profil
+                  </button>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="bg-gray-600 text-white font-[600] flex items-center justify-center rounded-[50px] px-6"
+                  style={{ height: "44px" }}
+                >
+                  Déconnexion
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <button
+                    className="bg-primaryColor text-white font-[600] flex items-center justify-center rounded-[50px] px-6"
+                    style={{ height: "44px" }}
+                  >
+                    Connexion
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button
+                    className="bg-primaryColor text-white font-[600] flex items-center justify-center rounded-[50px] px-6"
+                    style={{ height: "44px" }}
+                  >
+                    S'inscrire
+                  </button>
+                </Link>
+              </>
+            )}
+            <span className="md:hidden">
               <BiMenu className="w-6 h-6 cursor-pointer" />
             </span>
           </div>

@@ -3,131 +3,85 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css"; // Ton fichier CSS pour le style
 
 const Profile = () => {
-  const [userData, setUserData] = useState({
-    nom: "",
-    email: "",
-    tel: "",
-    password: "", // Il est possible de laisser l'utilisateur changer son mot de passe
-  });
-  const [error, setError] = useState("");
+  const [userData, setUserData] = useState(null); // Pour stocker les données utilisateur
+  const [error, setError] = useState(""); // Pour gérer les erreurs
   const navigate = useNavigate();
 
-  // Charger les données de l'utilisateur authentifié
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (!token) {
-      navigate("/login"); // Si le token n'est pas présent, redirige vers login
+      navigate("/login"); // Si pas de token, redirige vers login
       return;
     }
 
-    // Récupérer les données de l'utilisateur depuis l'API
+    // Faire la requête API pour récupérer les données de l'utilisateur
     fetch("http://localhost:8081/api/user/profile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`, // Ajouter le token dans l'en-tête de la requête
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        setUserData(data); // Remplir le state avec les données récupérées
+        setUserData(data); // Mettre à jour l'état avec les données utilisateur
       })
       .catch((err) => {
         setError("Impossible de récupérer les informations de l'utilisateur.");
+        console.error("Erreur : ", err);
       });
   }, [navigate]);
 
-  // Fonction pour gérer la soumission du formulaire de modification
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
+  // Si des erreurs se produisent, afficher un message d'erreur
+  if (error) {
+    return <p>{error}</p>;
+  }
 
-    // Vérifie si le token existe
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-
-    // Préparer les données à envoyer au backend
-    const updatedData = {
-      nom: userData.nom,
-      email: userData.email,
-      tel: userData.tel,
-      password: userData.password, // Si tu veux aussi modifier le mot de passe
-    };
-
-    try {
-      const response = await fetch("http://localhost:8081/api/user/update", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updatedData),
-      });
-
-      if (!response.ok) {
-        const errorRes = await response.json();
-        setError(errorRes.message || "Erreur lors de la mise à jour.");
-        return;
-      }
-
-      // Affiche une confirmation ou redirige l'utilisateur vers une autre page
-      alert("Profil mis à jour avec succès!");
-      navigate("/profile");
-    } catch (err) {
-      setError("Erreur serveur, veuillez réessayer.");
-      console.error("Erreur lors de la mise à jour:", err);
-    }
-  };
+  // Si les données sont en cours de récupération, afficher un message de chargement
+  if (!userData) {
+    return <p>Chargement...</p>;
+  }
 
   return (
     <div className="profile-wrapper">
-      <h2>Modifier le profil</h2>
+      <p id="titre">Profil de {userData.nom}</p>
+      <div className="profile-details">
+        <p>
+          <strong>Nom complet:</strong> {userData.nom}
+        </p>
+        <p>
+          <strong>Email:</strong> {userData.email}
+        </p>
+        <p>
+          <strong>Username:</strong> {userData.username}
+        </p>
+        <p>
+          <strong>Date de naissance:</strong>{" "}
+          {userData.dateNaissance ? userData.dateNaissance : "Non spécifié"}
+        </p>
+        <p>
+          <strong>Âge:</strong> {userData.age ? userData.age : "Non spécifié"}
+        </p>
+        <p>
+          <strong>Téléphone:</strong>{" "}
+          {userData.tel ? userData.tel : "Non spécifié"}
+        </p>
+        <p>
+          <strong>Sexe:</strong>{" "}
+          {userData.sexe ? userData.sexe : "Non spécifié"}
+        </p>
+        <p>
+          <strong>Type de compte:</strong> {userData.role}
+        </p>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <form onSubmit={handleSubmit}>
-        <label className="profile-label">Nom</label>
-        <input
-          type="text"
-          name="nom"
-          value={userData.nom}
-          onChange={(e) => setUserData({ ...userData, nom: e.target.value })}
-          required
-        />
-
-        <label className="profile-label">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={userData.email}
-          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-          required
-        />
-
-        <label className="profile-label">Téléphone</label>
-        <input
-          type="tel"
-          name="tel"
-          value={userData.tel}
-          onChange={(e) => setUserData({ ...userData, tel: e.target.value })}
-          required
-        />
-
-        <label className="profile-label">Mot de passe</label>
-        <input
-          type="password"
-          name="password"
-          value={userData.password}
-          onChange={(e) =>
-            setUserData({ ...userData, password: e.target.value })
-          }
-          placeholder="Laissez vide si vous ne voulez pas changer le mot de passe"
-        />
-
-        <button type="submit">Sauvegarder les modifications</button>
-      </form>
+        {/* Affichage conditionnel de la spécialité si l'utilisateur est un professionnel */}
+        {userData.role === "ROLE_PROFESSIONNEL" && (
+          <p>
+            <strong>Spécialité:</strong> {userData.specialite || "Non spécifié"}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

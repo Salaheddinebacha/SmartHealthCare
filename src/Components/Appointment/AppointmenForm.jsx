@@ -83,7 +83,7 @@ export default function FormulaireRendezVous() {
 
       setSoumis(true);
       setTimeout(() => {
-        navigate("/payment");
+        navigate("/payment"); // redirige vers la page de paiement
       }, 1500);
     } catch (error) {
       alert(

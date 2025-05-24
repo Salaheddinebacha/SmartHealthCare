@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "medscare",
+=======
+  "name": "SmartHealthCare",
+>>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
   "private": true,
   "version": "0.0.0",
   "type": "module",

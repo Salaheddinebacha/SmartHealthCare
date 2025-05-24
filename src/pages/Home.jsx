@@ -15,6 +15,10 @@ import avatarIcon from "../assets/Images/avatar-icon.png";
 import faqImg from "../assets/Images/faq-img.png";
 import Faqlist from "../Components/FAQ/Faqlist";
 import Testimonial from "../Components/Testimonial/Testimonial";
+<<<<<<< HEAD
+=======
+import ChatWidget from '../components/ChatBot/ChatWidget';
+>>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
 
 const Home = () => {
   return (
@@ -221,7 +225,13 @@ const Home = () => {
                 <button className="btn">En savoir plus</button>
               </Link>
             </div>
+<<<<<<< HEAD
 
+=======
+            <div style={{ backgroundColor: 'white', height: '100vh' }}>
+              <ChatWidget /> 
+             </div>
+>>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
             {/* --------image-------- */}
             <div className="relative z-0 xl:w-[660px] flex justify-end mt-[50px] lg:mt-0">
               <img src={featureImg} alt="" />

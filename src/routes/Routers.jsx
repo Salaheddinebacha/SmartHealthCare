@@ -9,7 +9,10 @@ import DoctorsDetails from "../pages/Doctors/DoctorsDetails";
 import Appointment from "../pages/Appointment";
 import ApmntShowData from "../Components/Appointment/ApmntShowData";
 import Profile from "../pages/Profile"; // Assurez-vous que le chemin est correct
+<<<<<<< HEAD
 import PaymentPage from "../pages/PaymentPage";
+=======
+>>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
 import { Routes, Route } from "react-router-dom";
 
 const Routers = () => {
@@ -26,7 +29,10 @@ const Routers = () => {
       <Route path="/appointment" element={<Appointment />} />
       <Route path="/apmntShowData" element={<ApmntShowData />} />
       <Route path="/profile" element={<Profile />} />
+<<<<<<< HEAD
       <Route path="/payment" element={<PaymentPage />} />
+=======
+>>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
     </Routes>
   );
 };

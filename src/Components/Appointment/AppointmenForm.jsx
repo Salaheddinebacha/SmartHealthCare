@@ -83,7 +83,11 @@ export default function FormulaireRendezVous() {
 
       setSoumis(true);
       setTimeout(() => {
+<<<<<<< HEAD
         navigate("/payment"); // redirige vers la page de paiement
+=======
+        navigate("/payment");
+>>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
       }, 1500);
     } catch (error) {
       alert(

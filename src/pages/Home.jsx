@@ -1,33 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+// Images
 import heroImg01 from "../assets/Images/hero-img01.png";
 import heroImg02 from "../assets/Images/hero-img02.png";
 import heroImg03 from "../assets/Images/hero-img03.png";
 import icon01 from "../assets/Images/icon01.png";
 import icon02 from "../assets/Images/icon02.png";
 import icon03 from "../assets/Images/icon03.png";
+import featureImg from "../assets/Images/feature-img.png";
+import faqImg from "../assets/Images/faq-img.png";
+
+// Icône
 import { BsArrowRight } from "react-icons/bs";
+
+// Composants internes
 import About from "../Components/About/About";
 import ServiceList from "../Components/Services/ServiceList";
-import featureImg from "../assets/Images/feature-img.png";
-import videoIcon from "../assets/Images/video-icon.png";
-import avatarIcon from "../assets/Images/avatar-icon.png";
-import faqImg from "../assets/Images/faq-img.png";
 import Faqlist from "../Components/FAQ/Faqlist";
 import Testimonial from "../Components/Testimonial/Testimonial";
-<<<<<<< HEAD
-=======
-import ChatWidget from '../components/ChatBot/ChatWidget';
->>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
+import ChatWidget from "../Components/ChatBot/ChatWidget";
 
 const Home = () => {
   return (
     <>
-      {/* ------------section héros----------- */}
+      {/* Section Héros */}
       <section className="hero_section pt-[60px] 2xl:h-[800px]">
         <div className="container">
           <div className="flex lg:flex-row gap-[90px] justify-between">
-            {/* --------contenu de la section héros-------- */}
             <div>
               <div className="lg:w-[570px]">
                 <h1 className="text-[36px] leading-[46px] text-headingColor font-[600] md:text-[60px] md:leading-[70px]">
@@ -36,210 +36,190 @@ const Home = () => {
                 <p className="text_para">
                   Chez <strong>SmartHealthCare</strong>, nous vous aidons à
                   comprendre vos préoccupations médicales et à trouver
-                  rapidement des solutions fiables. Grâce à notre interface
-                  intuitive et à notre chatbot intelligent, vous obtenez des
-                  réponses précises à vos questions de santé, sans délai. Fini
-                  les longues attentes ou les recherches incertaines — votre
-                  bien-être est à portée de clic.
+                  rapidement des solutions fiables.
                 </p>
-                <button className="btn">
+                <button className="btn mt-6">
                   <Link to="/appointment">Demander un rendez-vous</Link>
                 </button>
               </div>
 
-              {/* ----------Compteurs-------- */}
+              {/* Compteurs */}
               <div className="mt-[30px] lg:mt-[70px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]">
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    80+
-                  </h2>
-                  <span className="w-[100px] h-2 bg-yellowColor rounded-full block mt-[-14px]"></span>
-                  <p className="text_para">Pays couverts</p>
-                </div>
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    892+
-                  </h2>
-                  <span className="w-[100px] h-2 bg-purpleColor rounded-full block mt-[-14px]"></span>
-                  <p className="text_para">Clients satisfaits</p>
-                </div>
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    60+
-                  </h2>
-                  <span className="w-[100px] h-2 bg-cyan-400 rounded-full block mt-[-14px]"></span>
-                  <p className="text_para">Consultants experts</p>
-                </div>
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    367+
-                  </h2>
-                  <span className="w-[100px] h-2 bg-fuchsia-500 rounded-full block mt-[-14px]"></span>
-                  <p className="text_para">Prix remportés</p>
-                </div>
+                {[
+                  {
+                    label: "Pays couverts",
+                    value: "80+",
+                    color: "bg-yellowColor",
+                  },
+                  {
+                    label: "Clients satisfaits",
+                    value: "892+",
+                    color: "bg-purpleColor",
+                  },
+                  {
+                    label: "Consultants experts",
+                    value: "60+",
+                    color: "bg-cyan-400",
+                  },
+                  {
+                    label: "Prix remportés",
+                    value: "367+",
+                    color: "bg-fuchsia-500",
+                  },
+                ].map((item, index) => (
+                  <div key={index}>
+                    <h2 className="text-[36px] lg:text-[44px] font-[700] text-headingColor">
+                      {item.value}
+                    </h2>
+                    <span
+                      className={`w-[100px] h-2 ${item.color} rounded-full block mt-[-14px]`}
+                    ></span>
+                    <p className="text_para">{item.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* --------images de la section héros-------- */}
+            {/* Images Héros */}
             <div className="flex gap-[30px] justify-end">
               <div>
-                <img className="w-full" src={heroImg01} alt="" />
+                <img className="w-full" src={heroImg01} alt="hero1" />
               </div>
               <div className="mt-[30px]">
-                <img src={heroImg02} alt="" className="w-full mb-[30px]" />
-                <img src={heroImg03} alt="" className="w-full" />
+                <img src={heroImg02} alt="hero2" className="w-full mb-[30px]" />
+                <img src={heroImg03} alt="hero3" className="w-full" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --------section services rapides-------- */}
-      <section>
+      {/* Services rapides */}
+      <section className="py-[60px]">
         <div className="container">
-          <div className="lg:w-[470px] mx-auto">
-            <h2 className="heading text-center">
+          <div className="lg:w-[470px] mx-auto text-center">
+            <h2 className="heading">
               Nous offrons les meilleurs services médicaux
             </h2>
-            <p className="text_para text-center">
+            <p className="text_para">
               Des soins de classe mondiale pour tous. Notre système de santé
-              offre des soins de santé experts inégalés.
+              offre des soins experts.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]">
-            {/* Carte 1 */}
-            <div className="py-[30px] px-5">
-              <div className="flex items-center justify-center">
-                <img src={icon01} alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] mt-[55px]">
+            {[
+              {
+                icon: icon01,
+                title: "Trouver un médecin",
+                text: "Accédez à un large réseau de médecins certifiés selon votre spécialité et région.",
+              },
+              {
+                icon: icon02,
+                title: "Accéder au chatbot médical",
+                text: "Obtenez des réponses instantanées grâce à notre assistant intelligent, 24h/24.",
+              },
+              {
+                icon: icon03,
+                title: "Prendre un rendez-vous",
+                text: "Choisissez un professionnel selon sa spécialité et disponibilité.",
+              },
+            ].map((card, index) => (
+              <div
+                className="py-[30px] px-5 border rounded-lg shadow-sm"
+                key={index}
+              >
+                <div className="flex items-center justify-center">
+                  <img src={card.icon} alt={card.title} />
+                </div>
+                <div className="mt-[30px] text-center">
+                  <h2 className="text-[26px] text-headingColor font-[700]">
+                    {card.title}
+                  </h2>
+                  <p className="text-[16px] mt-4">{card.text}</p>
+                  <Link
+                    to="/doctors"
+                    className="w-[44px] h-[44px] rounded-full border mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor"
+                  >
+                    <BsArrowRight className="group-hover:text-white w-6 h-5" />
+                  </Link>
+                </div>
               </div>
-              <div className="mt-[30px]">
-                <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
-                  Trouver un médecin
-                </h2>
-                <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
-                  Accédez à un large réseau de médecins, infirmiers et coachs
-                  certifiés selon votre spécialité recherchée et votre région.
-                </p>
-                <Link
-                  to="/doctors"
-                  className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none"
-                >
-                  <BsArrowRight className="group-hover:text-white w-6 h-5" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Carte 2 */}
-            <div className="py-[30px] px-5">
-              <div className="flex items-center justify-center">
-                <img src={icon02} alt="" />
-              </div>
-              <div className="mt-[30px]">
-                <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
-                  Accéder au chatbot médical
-                </h2>
-                <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
-                  Obtenez des réponses instantanées à vos questions de santé
-                  générales grâce à notre assistant intelligent, disponible
-                  24h/24.
-                </p>
-                <Link
-                  to="/doctors"
-                  className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none"
-                >
-                  <BsArrowRight className="group-hover:text-white w-6 h-5" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Carte 3 */}
-            <div className="py-[30px] px-5">
-              <div className="flex items-center justify-center">
-                <img src={icon03} alt="" />
-              </div>
-              <div className="mt-[30px]">
-                <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
-                  Prendre un rendez-vous
-                </h2>
-                <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
-                  Gagnez du temps . En quelques clics, choisissez un
-                  professionnel de santé selon sa spécialité, sa disponibilité.
-                </p>
-                <Link
-                  to="/doctors"
-                  className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none"
-                >
-                  <BsArrowRight className="group-hover:text-white w-6 h-5" />
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ---------section À propos--------- */}
+      {/* À propos */}
       <About />
 
-      {/* ---------section Services--------- */}
-      <section>
+      {/* Nos Services */}
+      <section className="py-[60px]">
         <div className="container">
-          <div className="xl:w-[470px] mx-auto">
-            <h2 className="heading text-center">Nos services médicaux</h2>
-            <p className="text_para text-center">
-              Des soins accessibles, spécialisés et centrés sur le patient.
-              Notre plateforme vous met en relation avec les meilleurs
-              praticiens pour chaque besoin médical spécifique.
+          <div className="xl:w-[470px] mx-auto text-center">
+            <h2 className="heading">Nos services médicaux</h2>
+            <p className="text_para">
+              Une plateforme de mise en relation avec les meilleurs praticiens
+              selon chaque besoin médical spécifique.
             </p>
           </div>
           <ServiceList />
         </div>
       </section>
 
-      {/* -----------section fonctionnalités---------- */}
-      <section>
+      {/* Fonctionnalités */}
+      <section className="py-[60px]">
         <div className="container">
-          <div className="flex items-center justify-between flex-col lg:flex-row">
-            {/* --------contenu--------- */}
-            <div className="xl:w-[670px]">
-              <h2 className="heading">
-                Accédez aux soins sans <br />
-                attendre.
-              </h2>
-              <ul className="pl-4">
-                <li className="text_para">
-                  1. Prendre rendez-vous en ligne en quelques clics avec des
-                  médecins, infirmiers ou coachs certifiés.
+          <div className="flex items-center flex-col lg:flex-row justify-between">
+            <div className="xl:w-[670px] mb-10 lg:mb-0">
+              <h2 className="heading mb-4">Accédez aux soins sans attendre</h2>
+              <ul className="list-disc pl-6 space-y-2 text_para">
+                <li>
+                  Rendez-vous en ligne avec des médecins, infirmiers ou coachs
+                  certifiés.
                 </li>
-                <li className="text_para">
-                  2. Trouver rapidement un professionnel de santé selon votre
-                  spécialité ou région.
-                </li>
-                <li className="text_para">
-                  3. Planifier votre consultation facilement, avec une vue en
-                  temps réel des disponibilités des praticiens qui acceptent de
-                  nouveaux patients.
-                </li>
+                <li>Recherche rapide par spécialité ou région.</li>
+                <li>Accès instantané aux informations via le chatbot.</li>
               </ul>
-              <Link to="/">
-                <button className="btn">En savoir plus</button>
-              </Link>
             </div>
-<<<<<<< HEAD
-
-=======
-            <div style={{ backgroundColor: 'white', height: '100vh' }}>
-              <ChatWidget /> 
-             </div>
->>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
-            {/* --------image-------- */}
-            <div className="relative z-0 xl:w-[660px] flex justify-end mt-[50px] lg:mt-0">
-              <img src={featureImg} alt="" />
-              {/* Autres éléments superposés peuvent être ajoutés ici */}
+            <div>
+              <img
+                src={featureImg}
+                alt="feature"
+                className="w-full max-w-[500px]"
+              />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Section FAQ */}
+      <section className="py-[60px]">
+        <div className="container">
+          <div className="flex flex-col lg:flex-row items-center gap-10">
+            <div className="w-full lg:w-1/2">
+              <img src={faqImg} alt="faq" className="w-full" />
+            </div>
+            <div className="w-full lg:w-1/2">
+              <h2 className="heading mb-6">Questions fréquentes</h2>
+              <Faqlist />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Témoignages */}
+      <section className="py-[60px]">
+        <div className="container">
+          <h2 className="heading text-center mb-10">
+            Ce que disent nos patients
+          </h2>
+          <Testimonial />
+        </div>
+      </section>
+
+      {/* ChatBot */}
+      <ChatWidget />
     </>
   );
 };

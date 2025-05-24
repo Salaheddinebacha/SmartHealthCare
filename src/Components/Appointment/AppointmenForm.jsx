@@ -1,183 +1,227 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import About from "../About/About";
 
-const allCreneaux = [
-  "08:00",
-  "08:45",
-  "09:30",
-  "10:15",
-  "11:00",
-  "11:45",
-  "14:00",
-  "14:45",
-  "15:30",
-  "16:15",
-  "17:00",
-];
+// Images
+import heroImg01 from "../../assets/Images/hero-img01.png";
+import heroImg02 from "../../assets/Images/hero-img02.png";
+import heroImg03 from "../../assets/Images/hero-img03.png";
+import icon01 from "../../assets/Images/icon01.png";
+import icon02 from "../../assets/Images/icon02.png";
+import icon03 from "../../assets/Images/icon03.png";
+import featureImg from "../../assets/Images/feature-img.png";
+import faqImg from "../../assets/Images/faq-img.png";
 
-// IDs à remplacer dynamiquement dans ta vraie app
-const doctorId = 8;
-const patientId = 1;
+// Icône
+import { BsArrowRight } from "react-icons/bs";
 
-export default function FormulaireRendezVous() {
-  const [formData, setFormData] = useState({
-    dateRdv: "",
-    description: "",
-    horaire: "",
-  });
-  const [soumis, setSoumis] = useState(false);
-  const navigate = useNavigate();
+// Composants internes
+import ServiceList from "../Services/ServiceList";
+import Faqlist from "../FAQ/Faqlist";
+import Testimonial from "../Testimonial/Testimonial";
+import ChatWidget from "../ChatBot/ChatWidget";
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validation basique
-    const today = new Date();
-    const selectedDate = new Date(formData.dateRdv + "T00:00:00");
-    if (selectedDate <= today) {
-      alert(
-        "Veuillez sélectionner une date strictement supérieure à aujourd'hui."
-      );
-      return;
-    }
-    if (!formData.dateRdv || !formData.horaire || !formData.description) {
-      alert("Veuillez remplir tous les champs.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `http://localhost:8081/api/rdv/book?patientId=${patientId}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            doctorId,
-            date: formData.dateRdv,
-            heure: formData.horaire,
-            description: formData.description,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        let errMsg = "Erreur inconnue du serveur.";
-        // Essayer de parser la réponse en JSON
-        try {
-          const errorData = await response.json();
-          // Prendre le message ou la réponse brute
-          errMsg = errorData?.message || JSON.stringify(errorData) || errMsg;
-        } catch {
-          // Si JSON non parseable, essayer de récupérer le texte brut
-          try {
-            errMsg = (await response.text()) || errMsg;
-          } catch {}
-        }
-        throw new Error(errMsg);
-      }
-
-      setSoumis(true);
-      setTimeout(() => {
-<<<<<<< HEAD
-        navigate("/payment"); // redirige vers la page de paiement
-=======
-        navigate("/payment");
->>>>>>> ff423dfeb12f51c4368044be86d95edf2015a33b
-      }, 1500);
-    } catch (error) {
-      alert(
-        "Erreur lors de l'enregistrement du rendez-vous : " + error.message
-      );
-      console.error("Erreur réservation rdv:", error);
-    }
-  };
-
-  // Date minimale = demain (format ISO)
-  const todayPlusOne = new Date();
-  todayPlusOne.setDate(todayPlusOne.getDate() + 1);
-  const minDate = todayPlusOne.toISOString().split("T")[0];
-
+const Home = () => {
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white rounded shadow-lg mt-8">
-      <h2 className="text-2xl font-bold text-center mb-4 text-blue-600">
-        Prise de rendez-vous
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Date */}
-        <div>
-          <label className="block font-medium mb-1">
-            Sélectionnez la date :
-          </label>
-          <input
-            required
-            type="date"
-            name="dateRdv"
-            value={formData.dateRdv}
-            onChange={handleChange}
-            className="w-full input"
-            min={minDate}
-          />
+    <>
+      {/* Section Héros */}
+      <section className="hero_section pt-[60px] 2xl:h-[800px]">
+        <div className="container">
+          <div className="flex lg:flex-row gap-[90px] justify-between">
+            <div>
+              <div className="lg:w-[570px]">
+                <h1 className="text-[36px] leading-[46px] text-headingColor font-[600] md:text-[60px] md:leading-[70px]">
+                  Nous vous aiderons à comprendre et résoudre le problème.
+                </h1>
+                <p className="text_para">
+                  Chez <strong>SmartHealthCare</strong>, nous vous aidons à
+                  comprendre vos préoccupations médicales et à trouver
+                  rapidement des solutions fiables.
+                </p>
+                <button className="btn mt-6">
+                  <Link to="/appointment">Demander un rendez-vous</Link>
+                </button>
+              </div>
+
+              {/* Compteurs */}
+              <div className="mt-[30px] lg:mt-[70px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]">
+                {[
+                  {
+                    label: "Pays couverts",
+                    value: "80+",
+                    color: "bg-yellowColor",
+                  },
+                  {
+                    label: "Clients satisfaits",
+                    value: "892+",
+                    color: "bg-purpleColor",
+                  },
+                  {
+                    label: "Consultants experts",
+                    value: "60+",
+                    color: "bg-cyan-400",
+                  },
+                  {
+                    label: "Prix remportés",
+                    value: "367+",
+                    color: "bg-fuchsia-500",
+                  },
+                ].map((item, index) => (
+                  <div key={index}>
+                    <h2 className="text-[36px] lg:text-[44px] font-[700] text-headingColor">
+                      {item.value}
+                    </h2>
+                    <span
+                      className={`w-[100px] h-2 ${item.color} rounded-full block mt-[-14px]`}
+                    ></span>
+                    <p className="text_para">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Images Héros */}
+            <div className="flex gap-[30px] justify-end">
+              <div>
+                <img className="w-full" src={heroImg01} alt="hero1" />
+              </div>
+              <div className="mt-[30px]">
+                <img src={heroImg02} alt="hero2" className="w-full mb-[30px]" />
+                <img src={heroImg03} alt="hero3" className="w-full" />
+              </div>
+            </div>
+          </div>
         </div>
-        {/* Description */}
-        <div>
-          <label className="block font-medium mb-1">
-            Décrivez votre problème :
-          </label>
-          <textarea
-            required
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Décrivez votre problème..."
-            className="w-full input"
-          />
-        </div>
-        {/* Horaire */}
-        <div>
-          <label className="block font-medium mb-1">
-            Choisissez un créneau horaire :
-          </label>
-          <div className="grid grid-cols-3 gap-2">
-            {allCreneaux.map((heure) => (
-              <button
-                type="button"
-                key={heure}
-                onClick={() => setFormData({ ...formData, horaire: heure })}
-                className={`p-2 rounded text-white font-semibold transition duration-300 ease-in-out transform hover:scale-105
-                  ${
-                    formData.horaire === heure
-                      ? "bg-green-600"
-                      : "bg-purple-500 hover:bg-green-600"
-                  }`}
+      </section>
+
+      {/* Services rapides */}
+      <section className="py-[60px]">
+        <div className="container">
+          <div className="lg:w-[470px] mx-auto text-center">
+            <h2 className="heading">
+              Nous offrons les meilleurs services médicaux
+            </h2>
+            <p className="text_para">
+              Des soins de classe mondiale pour tous. Notre système de santé
+              offre des soins experts.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] mt-[55px]">
+            {[
+              {
+                icon: icon01,
+                title: "Trouver un médecin",
+                text: "Accédez à un large réseau de médecins certifiés selon votre spécialité et région.",
+              },
+              {
+                icon: icon02,
+                title: "Accéder au chatbot médical",
+                text: "Obtenez des réponses instantanées grâce à notre assistant intelligent, 24h/24.",
+              },
+              {
+                icon: icon03,
+                title: "Prendre un rendez-vous",
+                text: "Choisissez un professionnel selon sa spécialité et disponibilité.",
+              },
+            ].map((card, index) => (
+              <div
+                className="py-[30px] px-5 border rounded-lg shadow-sm"
+                key={index}
               >
-                {heure}
-              </button>
+                <div className="flex items-center justify-center">
+                  <img src={card.icon} alt={card.title} />
+                </div>
+                <div className="mt-[30px] text-center">
+                  <h2 className="text-[26px] text-headingColor font-[700]">
+                    {card.title}
+                  </h2>
+                  <p className="text-[16px] mt-4">{card.text}</p>
+                  <Link
+                    to="/doctors"
+                    className="w-[44px] h-[44px] rounded-full border mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor"
+                  >
+                    <BsArrowRight className="group-hover:text-white w-6 h-5" />
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
-          {formData.horaire && (
-            <p className="mt-2 text-sm text-green-600">
-              Créneau sélectionné : {formData.horaire}
+        </div>
+      </section>
+
+      {/* À propos */}
+      <About />
+
+      {/* Nos Services */}
+      <section className="py-[60px]">
+        <div className="container">
+          <div className="xl:w-[470px] mx-auto text-center">
+            <h2 className="heading">Nos services médicaux</h2>
+            <p className="text_para">
+              Une plateforme de mise en relation avec les meilleurs praticiens
+              selon chaque besoin médical spécifique.
             </p>
-          )}
+          </div>
+          <ServiceList />
         </div>
-        {/* Submit */}
-        <button
-          type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-purple-700 transition"
-        >
-          Envoyer
-        </button>
-      </form>
-      {soumis && (
-        <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">
-          <p>Merci ! Votre demande de rendez-vous a été envoyée avec succès.</p>
+      </section>
+
+      {/* Fonctionnalités */}
+      <section className="py-[60px]">
+        <div className="container">
+          <div className="flex items-center flex-col lg:flex-row justify-between">
+            <div className="xl:w-[670px] mb-10 lg:mb-0">
+              <h2 className="heading mb-4">Accédez aux soins sans attendre</h2>
+              <ul className="list-disc pl-6 space-y-2 text_para">
+                <li>
+                  Rendez-vous en ligne avec des médecins, infirmiers ou coachs
+                  certifiés.
+                </li>
+                <li>Recherche rapide par spécialité ou région.</li>
+                <li>Accès instantané aux informations via le chatbot.</li>
+              </ul>
+            </div>
+            <div>
+              <img
+                src={featureImg}
+                alt="feature"
+                className="w-full max-w-[500px]"
+              />
+            </div>
+          </div>
         </div>
-      )}
-    </div>
+      </section>
+
+      {/* Section FAQ */}
+      <section className="py-[60px]">
+        <div className="container">
+          <div className="flex flex-col lg:flex-row items-center gap-10">
+            <div className="w-full lg:w-1/2">
+              <img src={faqImg} alt="faq" className="w-full" />
+            </div>
+            <div className="w-full lg:w-1/2">
+              <h2 className="heading mb-6">Questions fréquentes</h2>
+              <Faqlist />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Témoignages */}
+      <section className="py-[60px]">
+        <div className="container">
+          <h2 className="heading text-center mb-10">
+            Ce que disent nos patients
+          </h2>
+          <Testimonial />
+        </div>
+      </section>
+
+      {/* ChatBot */}
+      <ChatWidget />
+    </>
   );
-}
+};
+
+export default Home;

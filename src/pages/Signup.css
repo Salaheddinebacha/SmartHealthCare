@@ -1,0 +1,125 @@
+.register-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.register-form {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.register-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333333;
+}
+
+.register-label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #444;
+  font-weight: 500;
+}
+
+.register-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.register-input:focus {
+  border-color: #007bff;
+}
+
+.register-gender-options {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.gender-option input[type="radio"] {
+  accent-color: #007bff;
+  width: 18px;
+  height: 18px;
+}
+
+.file-upload-wrapper {
+  margin-bottom: 1rem;
+}
+
+.custom-file-upload {
+  background-color: #a8e6cf;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.image-preview img {
+  margin-top: 10px;
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.register-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 25px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #38b000;
+}
+
+.register-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 120px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}

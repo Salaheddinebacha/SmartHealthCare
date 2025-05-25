@@ -10,6 +10,7 @@ import Appointment from "../pages/Appointment";
 import ApmntShowData from "../Components/Appointment/ApmntShowData";
 import Profile from "../pages/Profile";
 import PaymentPage from "../pages/PaymentPage"; // ✅ On garde cette ligne
+import AdminDashboard from "../pages/AdminDashbord";
 import { Routes, Route } from "react-router-dom";
 
 const Routers = () => {
@@ -25,8 +26,10 @@ const Routers = () => {
       <Route path="/services" element={<Services />} />
       <Route path="/appointment" element={<Appointment />} />
       <Route path="/apmntShowData" element={<ApmntShowData />} />
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/payment" element={<PaymentPage />} /> {/* ✅ On garde aussi cette ligne */}
+      <Route path="/payment" element={<PaymentPage />} />{" "}
+      {/* ✅ On garde aussi cette ligne */}
     </Routes>
   );
 };

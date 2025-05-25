@@ -8,31 +8,45 @@ import patientAvatar from "../../assets/Images/patient-avatar.png";
 
 const testimonials = [
   {
-    name: "John Doe",
+    name: "Ahmed El Amrani",
     feedback:
-      "I have taken medical services from them. They treat so well and they are providing the best medical services.",
+      "J'ai utilisé les services médicaux de SmartHealthCare. Le personnel est très professionnel et les médecins m'ont bien pris en charge. Très satisfait de la consultation.",
     rating: 5,
     avatar: patientAvatar,
   },
   {
-    name: "Jane Smith",
+    name: "Nasrollah el yamami",
     feedback:
-      "Excellent staff and doctors. Very professional and caring. Highly recommended!",
+      "Excellent service ! Les médecins sont compétents et à l'écoute. Je recommande vivement.",
     rating: 5,
     avatar: patientAvatar,
   },
   {
-    name: "Michael Johnson",
+    name: "Youssef Bouzid",
     feedback:
-      "Good experience overall. Facilities are clean and the service was quick.",
+      "Une expérience positive avec une équipe attentive et des consultations rapides. Les installations sont propres et modernes.",
     rating: 4,
     avatar: patientAvatar,
   },
   {
-    name: "Emily Brown",
+    name: "Adam laghoviz",
     feedback:
-      "I am very happy with the service. The doctor took the time to explain everything.",
+      "Très satisfaite de la consultation. Le médecin a pris le temps d'expliquer les traitements et m'a bien conseillée.",
     rating: 5,
+    avatar: patientAvatar,
+  },
+  {
+    name: "Khalid Ait Hammou",
+    feedback:
+      "Je suis allé à SmartHealthCare pour une consultation, et je suis vraiment impressionné par la qualité des services et de l'accueil.",
+    rating: 5,
+    avatar: patientAvatar,
+  },
+  {
+    name: "Reda Wiliwili",
+    feedback:
+      "Consultation très professionnelle avec un médecin à l'écoute. Je me suis sentie bien prise en charge, je recommande !",
+    rating: 4,
     avatar: patientAvatar,
   },
 ];

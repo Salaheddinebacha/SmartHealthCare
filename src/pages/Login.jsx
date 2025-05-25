@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError(""); // Reset error à chaque tentative
 
     try {
       const response = await fetch(
@@ -23,20 +23,31 @@ const Login = () => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.message || "Identifiants invalides");
+        // Tentative de récupération du message d'erreur
+        let errorMsg = "Identifiants invalides";
+        try {
+          const errorData = await response.json();
+          errorMsg = errorData.message || errorMsg;
+        } catch {
+          // si pas JSON, garder le message par défaut
+        }
+        setError(errorMsg);
         return;
       }
 
+      // Si connexion réussie
       const data = await response.json();
+
+      // Stocker le token dans localStorage
       localStorage.setItem("token", data.token);
 
-      // Déclencher un événement custom après login
+      // Optionnel : déclencher un événement custom pour informer l’app
       window.dispatchEvent(new Event("authChange"));
 
+      // Rediriger vers la page d’accueil ou tableau de bord
       navigate("/home");
     } catch (err) {
-      setError("Mot de passe Erroné.");
+      setError("Erreur réseau ou serveur.");
       console.error("Erreur lors de la connexion:", err);
     }
   };
@@ -56,6 +67,7 @@ const Login = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="username"
         />
 
         <label htmlFor="password" className="login-label">
@@ -68,6 +80,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          autoComplete="current-password"
         />
 
         {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
